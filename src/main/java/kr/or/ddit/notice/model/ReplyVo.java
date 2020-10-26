@@ -8,7 +8,7 @@ public class ReplyVo {
 	private int rep_stat;
 	private Date rep_dt;
 	private String rep_cont;
-	
+	private String user_id;
 	public int getRep_num() {
 		return rep_num;
 	}
@@ -39,7 +39,12 @@ public class ReplyVo {
 	public void setRep_cont(String rep_cont) {
 		this.rep_cont = rep_cont;
 	}
-	
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -49,9 +54,9 @@ public class ReplyVo {
 		result = prime * result + ((rep_dt == null) ? 0 : rep_dt.hashCode());
 		result = prime * result + rep_num;
 		result = prime * result + rep_stat;
+		result = prime * result + ((user_id == null) ? 0 : user_id.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -77,13 +82,17 @@ public class ReplyVo {
 			return false;
 		if (rep_stat != other.rep_stat)
 			return false;
+		if (user_id == null) {
+			if (other.user_id != null)
+				return false;
+		} else if (!user_id.equals(other.user_id))
+			return false;
 		return true;
 	}
-
 	@Override
 	public String toString() {
 		return "ReplyVo [rep_num=" + rep_num + ", nt_num=" + nt_num + ", rep_stat=" + rep_stat + ", rep_dt=" + rep_dt
-				+ ", rep_cont=" + rep_cont + "]";
+				+ ", rep_cont=" + rep_cont + ", user_id=" + user_id + "]";
 	}
 	
 }

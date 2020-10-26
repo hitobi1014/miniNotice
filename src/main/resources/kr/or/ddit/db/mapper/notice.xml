@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+	<!-- 게시판 분류 전체가져오기  -->
+	<select id="getAllNoticeGubun" resultType="NoticeGubunVo">
+		SELECT * FROM notice_gubun
+	</select>  
+	
+	<!-- 게시글 전체 가져오기  -->
+	<select id="getAllNotice" parameterType="String" resultType="NoticeVo">
+		SELECT * FROM MINI_NOTICE WHERE NTGU_CODE=#{ntgu_code} AND NT_STAT=1
+	</select>
+	
+	<!-- 특정 게시판분류 가져오기  -->
+	<select id="getNoticeGubun" parameterType="String" resultType="NoticeGubunVo">
+		SELECT * FROM NOTICE_GUBUN WHERE NTGU_CODE=#{ntgu_code}
+	</select>
+	
+	<!-- 게시글 상세정보 가져오기 -->
+	<select id="getNotice" parameterType="Integer" resultType="NoticeVo">
+		SELECT * FROM MINI_NOTICE WHERE NT_NUM=#{nt_num}
+	</select>
+	
+	<!-- 댓글 가져오기 -->
+	<select id="getAllReply" parameterType="Integer" resultType="ReplyVo">
+		SELECT * FROM NT_REPLY WHERE NT_NUM=#{nt_num}
+	</select>
+	
+	<!-- 게시글 작성 -->
+	<insert id="insertNotice" parameterType="NoticeVo">
+		INSERT INTO MINI_NOTICE	VALUES
+		(	NOTICE_SEQ.NEXTVAL,	
+			#{ntgu_code},	
+			#{user_id},
+			#{nt_stat},
+			#{ntcont_stat},
+			sysdate,
+			#{nt_cont},
+			#{nt_title},
+			<choose>
+				<when test="nt_panum !=null">#{nt_panum}</when>
+				<otherwise>''</otherwise>
+			</choose> )
+	</insert>
+	
+	<!-- 게시글삭제(글 상태코드 수정) -->
+	<update id="deleteNotice" parameterType="hashMap">
+		UPDATE MINI_NOTICE SET NTCONT_STAT=0 WHERE user_id='a001' and nt_num = 9;
+	</update>
+</mapper>

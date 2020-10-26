@@ -3,86 +3,85 @@ package kr.or.ddit.notice.model;
 import java.util.Date;
 
 public class NoticeVo {
-	private int NT_NUM;
-	private String NTGU_CODE;
-	private String USER_ID;
-	private int NT_STAT;
-	private int NTCONT_STAT;
-	private Date NT_DT;
-	private String NT_CONT;
-	private String NT_TITLE;
+	private int nt_num;
+	private String ntgu_code;
+	private String user_id;
+	private int nt_stat;
+	private int ntcont_stat;
+	private Date nt_dt;
+	private String nt_cont;
+	private String nt_title;
+	private int nt_panum;
 	
-	public int getNT_NUM() {
-		return NT_NUM;
+	public int getNt_num() {
+		return nt_num;
 	}
-	public void setNT_NUM(int nT_NUM) {
-		NT_NUM = nT_NUM;
+	public void setNt_num(int nt_num) {
+		this.nt_num = nt_num;
 	}
-	public String getNTGU_CODE() {
-		return NTGU_CODE;
+	public String getNtgu_code() {
+		return ntgu_code;
 	}
-	public void setNTGU_CODE(String nTGU_CODE) {
-		NTGU_CODE = nTGU_CODE;
+	public void setNtgu_code(String ntgu_code) {
+		this.ntgu_code = ntgu_code;
 	}
-	public String getUSER_ID() {
-		return USER_ID;
+	public String getUser_id() {
+		return user_id;
 	}
-	public void setUSER_ID(String uSER_ID) {
-		USER_ID = uSER_ID;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
-	public int getNT_STAT() {
-		return NT_STAT;
+	public int getNt_stat() {
+		return nt_stat;
 	}
-	public void setNT_STAT(int nT_STAT) {
-		NT_STAT = nT_STAT;
+	public void setNt_stat(int nt_stat) {
+		this.nt_stat = nt_stat;
 	}
-	public int getNTCONT_STAT() {
-		return NTCONT_STAT;
+	public int getNtcont_stat() {
+		return ntcont_stat;
 	}
-	public void setNTCONT_STAT(int nTCONT_STAT) {
-		NTCONT_STAT = nTCONT_STAT;
+	public void setNtcont_stat(int ntcont_stat) {
+		this.ntcont_stat = ntcont_stat;
 	}
-	public Date getNT_DT() {
-		return NT_DT;
+	public Date getNt_dt() {
+		return nt_dt;
 	}
-	public void setNT_DT(Date nT_DT) {
-		NT_DT = nT_DT;
+	public void setNt_dt(Date nt_dt) {
+		this.nt_dt = nt_dt;
 	}
-	public String getNT_CONT() {
-		return NT_CONT;
+	public String getNt_cont() {
+		return nt_cont;
 	}
-	public void setNT_CONT(String nT_CONT) {
-		NT_CONT = nT_CONT;
+	public void setNt_cont(String nt_cont) {
+		this.nt_cont = nt_cont;
 	}
-	public String getNT_TITLE() {
-		return NT_TITLE;
+	public String getNt_title() {
+		return nt_title;
 	}
-	public void setNT_TITLE(String nT_TITLE) {
-		NT_TITLE = nT_TITLE;
+	public void setNt_title(String nt_title) {
+		this.nt_title = nt_title;
 	}
-	
-	@Override
-	public String toString() {
-		return "NoticeVo [NT_NUM=" + NT_NUM + ", NTGU_CODE=" + NTGU_CODE + ", USER_ID=" + USER_ID + ", NT_STAT="
-				+ NT_STAT + ", NTCONT_STAT=" + NTCONT_STAT + ", NT_DT=" + NT_DT + ", NT_CONT=" + NT_CONT + ", NT_TITLE="
-				+ NT_TITLE + "]";
+	public int getNt_panum() {
+		return nt_panum;
 	}
-	
+	public void setNt_panum(int nt_panum) {
+		this.nt_panum = nt_panum;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + NTCONT_STAT;
-		result = prime * result + ((NTGU_CODE == null) ? 0 : NTGU_CODE.hashCode());
-		result = prime * result + ((NT_CONT == null) ? 0 : NT_CONT.hashCode());
-		result = prime * result + ((NT_DT == null) ? 0 : NT_DT.hashCode());
-		result = prime * result + NT_NUM;
-		result = prime * result + NT_STAT;
-		result = prime * result + ((NT_TITLE == null) ? 0 : NT_TITLE.hashCode());
-		result = prime * result + ((USER_ID == null) ? 0 : USER_ID.hashCode());
+		result = prime * result + ((nt_cont == null) ? 0 : nt_cont.hashCode());
+		result = prime * result + ((nt_dt == null) ? 0 : nt_dt.hashCode());
+		result = prime * result + nt_num;
+		result = prime * result + nt_panum;
+		result = prime * result + nt_stat;
+		result = prime * result + ((nt_title == null) ? 0 : nt_title.hashCode());
+		result = prime * result + ntcont_stat;
+		result = prime * result + ((ntgu_code == null) ? 0 : ntgu_code.hashCode());
+		result = prime * result + ((user_id == null) ? 0 : user_id.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -92,38 +91,47 @@ public class NoticeVo {
 		if (getClass() != obj.getClass())
 			return false;
 		NoticeVo other = (NoticeVo) obj;
-		if (NTCONT_STAT != other.NTCONT_STAT)
-			return false;
-		if (NTGU_CODE == null) {
-			if (other.NTGU_CODE != null)
+		if (nt_cont == null) {
+			if (other.nt_cont != null)
 				return false;
-		} else if (!NTGU_CODE.equals(other.NTGU_CODE))
+		} else if (!nt_cont.equals(other.nt_cont))
 			return false;
-		if (NT_CONT == null) {
-			if (other.NT_CONT != null)
+		if (nt_dt == null) {
+			if (other.nt_dt != null)
 				return false;
-		} else if (!NT_CONT.equals(other.NT_CONT))
+		} else if (!nt_dt.equals(other.nt_dt))
 			return false;
-		if (NT_DT == null) {
-			if (other.NT_DT != null)
+		if (nt_num != other.nt_num)
+			return false;
+		if (nt_panum != other.nt_panum)
+			return false;
+		if (nt_stat != other.nt_stat)
+			return false;
+		if (nt_title == null) {
+			if (other.nt_title != null)
 				return false;
-		} else if (!NT_DT.equals(other.NT_DT))
+		} else if (!nt_title.equals(other.nt_title))
 			return false;
-		if (NT_NUM != other.NT_NUM)
+		if (ntcont_stat != other.ntcont_stat)
 			return false;
-		if (NT_STAT != other.NT_STAT)
-			return false;
-		if (NT_TITLE == null) {
-			if (other.NT_TITLE != null)
+		if (ntgu_code == null) {
+			if (other.ntgu_code != null)
 				return false;
-		} else if (!NT_TITLE.equals(other.NT_TITLE))
+		} else if (!ntgu_code.equals(other.ntgu_code))
 			return false;
-		if (USER_ID == null) {
-			if (other.USER_ID != null)
+		if (user_id == null) {
+			if (other.user_id != null)
 				return false;
-		} else if (!USER_ID.equals(other.USER_ID))
+		} else if (!user_id.equals(other.user_id))
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "NoticeVo [nt_num=" + nt_num + ", ntgu_code=" + ntgu_code + ", user_id=" + user_id + ", nt_stat="
+				+ nt_stat + ", ntcont_stat=" + ntcont_stat + ", nt_dt=" + nt_dt + ", nt_cont=" + nt_cont + ", nt_title="
+				+ nt_title + ", nt_panum=" + nt_panum + "]";
+	}
+	
 	
 }

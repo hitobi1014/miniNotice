@@ -1,4 +1,4 @@
-package kr.or.ddit.notice.model;
+package kr.or.ddit.user.model;
 
 public class ManagerVo {
 	private String mng_id;
