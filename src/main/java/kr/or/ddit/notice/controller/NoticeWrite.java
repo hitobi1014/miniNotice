@@ -1,15 +1,21 @@
 package kr.or.ddit.notice.controller;
 
 import java.io.IOException;
+import java.util.UUID;
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import kr.or.ddit.fileupload.FileUploadUtil;
+import kr.or.ddit.notice.model.NoticeFileVo;
 import kr.or.ddit.notice.model.NoticeVo;
 import kr.or.ddit.notice.service.NoticeService;
 import kr.or.ddit.notice.service.NoticeServiceI;
@@ -18,6 +24,7 @@ import kr.or.ddit.notice.service.NoticeServiceI;
  * Servlet implementation class NoticeWrite
  */
 @WebServlet("/noticeWrite")
+@MultipartConfig
 public class NoticeWrite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static final Logger logger = LoggerFactory.getLogger(NoticeWrite.class);   
@@ -32,7 +39,6 @@ public class NoticeWrite extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		request.getParameter("editordata");
 		request.setCharacterEncoding("utf-8");
 		// 필요데이터
 //		NT_NUM 	NTGU_CODE 	USER_ID 	NT_STAT 		NTCONT_STAT 	NT_DT 	NT_CONT 	NT_TITLE 	NT_PANUM
@@ -58,14 +64,43 @@ public class NoticeWrite extends HttpServlet {
 		nvo.setNt_cont(nt_cont);
 		nvo.setNt_stat(nt_stat);
 		nvo.setNtcont_stat(ntcont_stat);
+		
 		int insertCnt = noticeService.insertNotice(nvo);
+		int nt_num = nvo.getNt_num(); // 글번호가져오기
 		if(insertCnt>0) {
 			logger.debug("등록성공");
 		}else {
 			logger.debug("등록실패");
 		}
 		
+		// 파일 등록
+		Part profile = request.getPart("nt_file");
+		logger.debug("profile : {} ",profile.getHeader("Content-Disposition"));
 		
+		String realFilename = FileUploadUtil.getFileName(profile.getHeader("Content-Disposition")); // 파일이름
+		String fileName = UUID.randomUUID().toString();
+		String extension = FileUploadUtil.getExtension(realFilename);
+		String filePath = ""; //파일경로
+		if(profile.getSize() > 0) { 
+			filePath = "D:\\upload\\" + fileName + "."+extension;
+			profile.write(filePath);
+		}
+		NoticeFileVo nfvo = new NoticeFileVo();
+		nfvo.setFilename(realFilename);
+		nfvo.setFilepath(filePath);
+		nfvo.setNt_num(nt_num);
+		int inserFiletCnt = noticeService.insertFile(nfvo);
+		
+		if(inserFiletCnt > 0) {
+			logger.debug("파일등록성공");
+		}else {
+			logger.debug("파일등록실패");
+		}
+//		logger.debug("파일이름 : {}, 파일 경로 : {}",realFilename,filePath);
+		
+		
+		
+		response.sendRedirect("/notice?ntgu_code="+ntgu_code);
 	}
 
 }

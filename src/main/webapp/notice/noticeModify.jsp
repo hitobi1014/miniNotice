@@ -38,10 +38,6 @@
 <link rel="stylesheet" href="${cp}/css/summernote/summernote-lite.css"></head>
 <script>
 $(document).ready(function(){
-	$('#selectNotice').on('click',function(){
-		$('#selectNotice option:eq(0)').css('display','none');
-// 		$('#selectNotice option:eq(1)').prop('selected',true);
-	})
 	
 	$('#summernote').summernote({
 		  height: 300,                 // 에디터 높이
@@ -54,7 +50,6 @@ $(document).ready(function(){
 	});
 
 	$('#subBtn').on('click',function(){
-// 		console.log("정상작동");
 		$('#frm').submit();
 	})
 })
@@ -74,22 +69,29 @@ $(document).ready(function(){
 						<h2>글쓰기</h2>
 					</div>
 					<div>
-						<form method="post" action="${cp}/noticeWrite" id="frm" enctype="multipart/form-data">
+						<form method="post" action="${cp}/noticeModify" id="frm">
 							<input type="hidden" value="${S_MEMBER.user_id}" name="user_id" id="user_id" />
+							<input type="hidden" value="${nvo.nt_num}" name="nt_num" />
 							<div>
 								<select id="selectNotice" name="noticeGubun">
-									<option selected="selected">게시판을 선택해주세요</option>
+<!-- 									<option selected="selected">게시판을 선택해주세요</option> -->
 									<c:forEach items="${noticeGubun}" var="noticeGubun">
-										<option value="${noticeGubun.ntgu_code}">${noticeGubun.ntgu_name}</option> 
+										<c:choose>
+											<c:when test="${ngvo.ntgu_code == noticeGubun.ntgu_code}">
+												<option value="${noticeGubun.ntgu_code}" selected="selected">${noticeGubun.ntgu_name}</option> 
+											</c:when>
+											<c:otherwise>
+												<option value="${noticeGubun.ntgu_code}">${noticeGubun.ntgu_name}</option> 
+											</c:otherwise>
+										</c:choose>
 									</c:forEach>
 								</select>
 							</div>
 							<div>
-								<input type="text" id="title" placeholder="제목을 입력해주세요" name="title"/>
+								<input type="text" id="title" placeholder="제목을 입력해주세요" name="title" value="${nvo.nt_title }"/>
 							  	<button id="subBtn" type="submit">등록</button>
 							</div>
-						  	<textarea id="summernote" name="editordata"></textarea>
-							<input type="file" name="nt_file"/>
+						  	<textarea id="summernote" name="editordata">${nvo.nt_cont}</textarea>
 						</form>
 					</div>
 				</div>

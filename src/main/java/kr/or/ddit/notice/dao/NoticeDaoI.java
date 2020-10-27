@@ -3,6 +3,9 @@ package kr.or.ddit.notice.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.common.model.PageVO;
 import kr.or.ddit.notice.model.NoticeFileVo;
 import kr.or.ddit.notice.model.NoticeGubunVo;
 import kr.or.ddit.notice.model.NoticeVo;
@@ -106,4 +109,47 @@ public interface NoticeDaoI {
 	 */
 	List<ReplyVo> getAllReply(int nt_num);
 	
+	/**
+	 * 댓글 등록하기
+	 * @param 댓글을 담은 vo 객체
+	 * @return 댓글등록에 성공하면 1이상 반환 아니면 0
+	 */
+	int insertReply(ReplyVo rvo);
+	
+	/**
+	 * 댓글 삭제하기
+	 * @param 유저아이디와, 댓글번호를 담은 map 객체
+	 * @return 삭제 성공시 1이상 값 반환 실패시 0
+	 */
+	int deleteReply(ReplyVo rvo);
+	
+	/**
+	 * 댓글 수정하기
+	 * @param 댓글번호, 유저아이디, 댓글내용
+	 * @return 수정 성공시 1이상 실패시0 반환
+	 */
+	int updateReply(ReplyVo rvo);
+	
+	/**
+	 * 게시판 페이징 처리를 위한 게시판 별 글 갯수 구하기
+	 * @param 게시판 분류코드
+	 * @return 게시판별 글 갯수
+	 */
+	int noticeTotalCnt(String ntgu_code);
+	
+	List<NoticeVo> getAllNoticePage(SqlSession sqlSession, Map<String, Object> map);
+	
+	/**
+	 * 게시글에 존재하는 첨부파일 가져오기
+	 * @param 게시글 번호
+	 * @return 게시글 번호에 해당하는 파일 vo객체 리스트 
+	 */
+	List<NoticeFileVo> getAllFile(int nt_num);
+	
+	/**
+	 * 파일 다운로드를 받기위한 파일정보 가져오기
+	 * @param 파일번호
+	 * @return 파일번호에 해당하는 파일vo
+	 */
+	NoticeFileVo getFile(int filenum);
 }

@@ -42,7 +42,14 @@
 								<c:forEach items="${noticeList}" var="notice">
 									<tr data-userid="${notice.user_id }">
 										<td>${notice.nt_num }</td>
-										<td><a href="${cp}/noticeDetail?nt_num=${notice.nt_num}">${notice.nt_title }</a></td>
+										<c:choose>
+											<c:when test="${notice.ntcont_stat == 0}">
+												<td>[삭제된 게시글 입니다]</td>
+											</c:when>
+											<c:otherwise>
+												<td><a href="${cp}/noticeDetail?nt_num=${notice.nt_num}">${notice.nt_title }</a></td>
+											</c:otherwise>
+										</c:choose>
 										<td>${notice.user_id }</td>
 										<td><fmt:formatDate value="${notice.nt_dt }" pattern="yyyy-MM-dd"/></td>
 									</tr>
@@ -50,17 +57,17 @@
 							</tbody>
 						</table>
 					</div>
-					<a class="btn btn-default pull-right" href="${cp }/noticeWrite">게시글작성</a>
-					page : ${page }
+					<a class="btn btn-default pull-right" href="${cp}/noticeWrite">게시글작성</a>
+					page : ${page}
 					<div class="text-center">
 						<ul class="pagination">
-							<c:forEach var="i" begin="1" end="${pages }">
+							<c:forEach var="i" begin="1" end="${pages}">
 								<c:choose>
 									<c:when test="${i == page }">
-										<li class="active"><span>${i }</span></li>
+										<li class="active"><span>${i}</span></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="${pageContext.request.contextPath }/memberList?page=${i }">${i }</a></li>
+										<li><a href="${cp}/notice?page=${i}&ntgu_code=${ngvo.ntgu_code}">${i}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>

@@ -12,7 +12,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="#">JSP/SPRING 
-				<c:if test="${S_MEMBER.user_id != null }">[${S_MEMBER.user_id}]</c:if>
+				<c:if test="${S_MEMBER.user_id != null }">[${S_MEMBER.user_id} 님 환영합니다]</c:if>
 			</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">

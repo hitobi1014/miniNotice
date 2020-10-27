@@ -9,6 +9,7 @@ public class ReplyVo {
 	private Date rep_dt;
 	private String rep_cont;
 	private String user_id;
+	
 	public int getRep_num() {
 		return rep_num;
 	}

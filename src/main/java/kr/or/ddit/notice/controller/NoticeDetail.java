@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import kr.or.ddit.notice.model.NoticeFileVo;
 import kr.or.ddit.notice.model.NoticeGubunVo;
 import kr.or.ddit.notice.model.NoticeVo;
 import kr.or.ddit.notice.model.ReplyVo;
@@ -47,7 +48,12 @@ public class NoticeDetail extends HttpServlet {
 		request.setAttribute("replyList", replyList);
 		request.setAttribute("ngvo", ngvo);
 		
-		logger.debug("reply : {}", replyList);
+		// 파일가져오기
+		List<NoticeFileVo> nfvoList = noticeService.getAllFile(nt_num);
+//		logger.debug("nfvoList : {} ",nfvoList);
+		request.setAttribute("nfvoList", nfvoList);
+		
+//		logger.debug("reply : {}", replyList);
 		request.getRequestDispatcher("/notice/noticeDetail.jsp").forward(request, response);
 		
 	}

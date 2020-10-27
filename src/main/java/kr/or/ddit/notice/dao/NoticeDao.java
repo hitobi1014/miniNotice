@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import kr.or.ddit.common.model.PageVO;
 import kr.or.ddit.db.MybatisUtil;
 import kr.or.ddit.notice.model.NoticeFileVo;
 import kr.or.ddit.notice.model.NoticeGubunVo;
@@ -35,8 +36,11 @@ public class NoticeDao implements NoticeDaoI {
 
 	@Override
 	public int insertFile(NoticeFileVo nfvo) {
-		// TODO Auto-generated method stub
-		return 0;
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		int insertCnt = sqlSession.insert("notice.insertFile", nfvo);
+		sqlSession.commit();
+		sqlSession.close();
+		return insertCnt;
 	}
 
 	@Override
@@ -63,8 +67,11 @@ public class NoticeDao implements NoticeDaoI {
 
 	@Override
 	public int updateNotice(NoticeVo nvo) {
-		// TODO Auto-generated method stub
-		return 0;
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		int updateCnt = sqlSession.update("notice.updateNotice", nvo);
+		sqlSession.commit();
+		sqlSession.close();
+		return updateCnt;
 	}
 
 	@Override
@@ -99,5 +106,62 @@ public class NoticeDao implements NoticeDaoI {
 		sqlSession.close();
 		return replyList;
 	}
+
+	@Override
+	public int insertReply(ReplyVo rvo) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		int insertCnt = sqlSession.insert("notice.insertReply",rvo);
+		sqlSession.commit();
+		sqlSession.close();
+		return insertCnt;
+	}
+
+	@Override
+	public int deleteReply(ReplyVo rvo) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		int deleteCnt = sqlSession.insert("notice.deleteReply",rvo);
+		sqlSession.commit();
+		sqlSession.close();
+		return deleteCnt;
+	}
+
+	@Override
+	public int updateReply(ReplyVo rvo) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		int updateCnt = sqlSession.update("notice.updateReply",rvo);
+		sqlSession.commit();
+		sqlSession.close();
+		return updateCnt;
+	}
+
+	@Override
+	public int noticeTotalCnt(String ntgu_code) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		int noticeCnt = sqlSession.selectOne("notice.noticeTotalCnt",ntgu_code);
+		sqlSession.close();
+		return noticeCnt;
+	}
+
+	@Override
+	public List<NoticeVo> getAllNoticePage(SqlSession sqlSession, Map<String, Object> map) {
+		return sqlSession.selectList("notice.getAllNoticePage", map);
+	}
+
+	@Override
+	public List<NoticeFileVo> getAllFile(int nt_num) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		List<NoticeFileVo> nfvoList = sqlSession.selectList("notice.getAllFile",nt_num);
+		sqlSession.close();
+		return nfvoList;
+	}
+
+	@Override
+	public NoticeFileVo getFile(int filenum) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		NoticeFileVo nfvo = sqlSession.selectOne("notice.getAllFile",filenum);
+		sqlSession.close();
+		return nfvo;
+	}
+	
 
 }
