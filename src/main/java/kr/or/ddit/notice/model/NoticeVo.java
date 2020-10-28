@@ -12,7 +12,14 @@ public class NoticeVo {
 	private String nt_cont;
 	private String nt_title;
 	private int nt_panum;
+	private int level;
 	
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
 	public int getNt_num() {
 		return nt_num;
 	}
@@ -71,6 +78,7 @@ public class NoticeVo {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + level;
 		result = prime * result + ((nt_cont == null) ? 0 : nt_cont.hashCode());
 		result = prime * result + ((nt_dt == null) ? 0 : nt_dt.hashCode());
 		result = prime * result + nt_num;
@@ -91,6 +99,8 @@ public class NoticeVo {
 		if (getClass() != obj.getClass())
 			return false;
 		NoticeVo other = (NoticeVo) obj;
+		if (level != other.level)
+			return false;
 		if (nt_cont == null) {
 			if (other.nt_cont != null)
 				return false;
@@ -130,8 +140,7 @@ public class NoticeVo {
 	public String toString() {
 		return "NoticeVo [nt_num=" + nt_num + ", ntgu_code=" + ntgu_code + ", user_id=" + user_id + ", nt_stat="
 				+ nt_stat + ", ntcont_stat=" + ntcont_stat + ", nt_dt=" + nt_dt + ", nt_cont=" + nt_cont + ", nt_title="
-				+ nt_title + ", nt_panum=" + nt_panum + "]";
+				+ nt_title + ", nt_panum=" + nt_panum + ", level=" + level + "]";
 	}
-	
 	
 }

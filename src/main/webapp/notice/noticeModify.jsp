@@ -52,6 +52,18 @@ $(document).ready(function(){
 	$('#subBtn').on('click',function(){
 		$('#frm').submit();
 	})
+
+	$('.fileDel').on('click',function(){
+		$(this).parent().hide();
+// 		console.log($(this).parent().val());
+		$(this).next('input [class=num]');
+		console.log($(this).next("input[class='num']").val());
+// 		console.log(filenum);
+// 		$(this).parent().append("<input type='hidden' value='${nfvo.filenum}' name='fileDel'/>");
+// 		var delScr = 	
+		
+	})
+
 })
 </script>
 
@@ -92,6 +104,26 @@ $(document).ready(function(){
 							  	<button id="subBtn" type="submit">등록</button>
 							</div>
 						  	<textarea id="summernote" name="editordata">${nvo.nt_cont}</textarea>
+							<div class="filediv">
+							  	<button type="button" id="fileAddBtn">파일추가</button>
+								<c:if test="${nfvoList !=null }">
+									<c:forEach items="${nfvoList}" var="nfvo" >
+										<div class="divdel">
+											<span>${nfvo.filename}</span>
+											<button class="fileDel" type="button" >X</button>
+											<input type="hidden" value="${nfvo.filenum}" class="num" name="num"/>
+										</div>
+									</c:forEach>
+								</c:if>
+						  	</div>
+<!-- 					  		<div class="filediv"> -->
+<!-- 							  	<button type="button" id="fileAddBtn">파일추가</button> -->
+<!-- 								<input class="fileAdd" type="file" name="nt_file1"/> -->
+<!-- 								<input class="fileAdd" type="file" name="nt_file2"/> -->
+<!-- 								<input class="fileAdd" type="file" name="nt_file3"/> -->
+<!-- 								<input class="fileAdd" type="file" name="nt_file4"/> -->
+<!-- 								<input class="fileAdd" type="file" name="nt_file5"/> -->
+<!-- 						  	</div> -->
 						</form>
 					</div>
 				</div>

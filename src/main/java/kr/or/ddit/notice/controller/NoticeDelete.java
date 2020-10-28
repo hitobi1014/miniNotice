@@ -45,6 +45,13 @@ public class NoticeDelete extends HttpServlet {
 			logger.debug("삭제실패");
 		}
 		
+		int deleteCnt = noticeService.deleteAllFile(nt_num);
+		if(deleteCnt >0) {
+			logger.debug("파일삭제 성공");
+		}else {
+			logger.debug("파일삭제 실패");
+		}
+		
 		response.sendRedirect("/notice?ntgu_code="+ntgu_code);
 	}
 

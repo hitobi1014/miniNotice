@@ -74,29 +74,33 @@ public class NoticeWrite extends HttpServlet {
 		}
 		
 		// 파일 등록
-		Part profile = request.getPart("nt_file");
-		logger.debug("profile : {} ",profile.getHeader("Content-Disposition"));
 		
-		String realFilename = FileUploadUtil.getFileName(profile.getHeader("Content-Disposition")); // 파일이름
-		String fileName = UUID.randomUUID().toString();
-		String extension = FileUploadUtil.getExtension(realFilename);
-		String filePath = ""; //파일경로
-		if(profile.getSize() > 0) { 
-			filePath = "D:\\upload\\" + fileName + "."+extension;
-			profile.write(filePath);
+		for(int i=1; i<6; i++) {
+			Part profile = request.getPart("nt_file" +i);
+			logger.debug("profile : {} ",profile.getHeader("Content-Disposition"));
+			
+			String realFilename = FileUploadUtil.getFileName(profile.getHeader("Content-Disposition")); // 파일이름
+			String fileName = UUID.randomUUID().toString();
+			String extension = FileUploadUtil.getExtension(realFilename);
+			String filePath = ""; //파일경로
+			if(profile.getSize() > 0) { 
+				filePath = "D:\\upload\\" + fileName + "."+extension;
+				profile.write(filePath);
+				NoticeFileVo nfvo = new NoticeFileVo();
+				nfvo.setFilename(realFilename);
+				nfvo.setFilepath(filePath);
+				nfvo.setNt_num(nt_num);
+				int inserFiletCnt = noticeService.insertFile(nfvo);
+				if(inserFiletCnt > 0) {
+					logger.debug("파일등록성공");
+				}else {
+					logger.debug("파일등록실패");
+				}
+			}
+			
+			
+			logger.debug("파일이름 : {}, 파일 경로 : {}",realFilename,filePath);
 		}
-		NoticeFileVo nfvo = new NoticeFileVo();
-		nfvo.setFilename(realFilename);
-		nfvo.setFilepath(filePath);
-		nfvo.setNt_num(nt_num);
-		int inserFiletCnt = noticeService.insertFile(nfvo);
-		
-		if(inserFiletCnt > 0) {
-			logger.debug("파일등록성공");
-		}else {
-			logger.debug("파일등록실패");
-		}
-//		logger.debug("파일이름 : {}, 파일 경로 : {}",realFilename,filePath);
 		
 		
 		

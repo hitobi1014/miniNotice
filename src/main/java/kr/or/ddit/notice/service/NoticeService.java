@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import kr.or.ddit.common.model.PageVO;
 import kr.or.ddit.db.MybatisUtil;
@@ -17,6 +19,7 @@ import kr.or.ddit.notice.model.ReplyVo;
 
 public class NoticeService implements NoticeServiceI {
 	private NoticeDaoI noticeDao;
+	private static final Logger logger = LoggerFactory.getLogger(NoticeService.class);
 
 	public NoticeService() {
 		noticeDao = new NoticeDao();
@@ -24,7 +27,7 @@ public class NoticeService implements NoticeServiceI {
 
 	@Override
 	public int insertNoticeGubun(NoticeGubunVo ngvo) {
-		return 0;
+		return noticeDao.insertNoticeGubun(ngvo);
 	}
 
 	@Override
@@ -129,7 +132,23 @@ public class NoticeService implements NoticeServiceI {
 
 	@Override
 	public NoticeFileVo getFile(int filenum) {
+//		logger.debug("getFile service단 실행");
 		return noticeDao.getFile(filenum);
+	}
+
+	@Override
+	public int updateNoticeGubun(NoticeGubunVo ngvo) {
+		return noticeDao.updateNoticeGubun(ngvo);
+	}
+
+	@Override
+	public int deleteFile(int filenum) {
+		return noticeDao.deleteFile(filenum);
+	}
+
+	@Override
+	public int deleteAllFile(int nt_num) {
+		return noticeDao.deleteAllFile(nt_num);
 	}
 
 }

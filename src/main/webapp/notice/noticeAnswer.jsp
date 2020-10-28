@@ -94,19 +94,14 @@ $(document).ready(function(){
 			<div class="row">
 				<div class="col-sm-8 blog-main">
 					<div class="sub-header">
-						<h2>글쓰기</h2>
+						<h2>${nt_panum}번 게시글 : 답글쓰기</h2>
 					</div>
 					<div>
-						<form method="post" action="${cp}/noticeWrite" id="frm" enctype="multipart/form-data">
+						<form method="post" action="${cp}/noticeAnswer" id="frm" enctype="multipart/form-data">
 							<input type="hidden" value="${S_MEMBER.user_id}" name="user_id" id="user_id" />
 							<div>
 								<select id="selectNotice" name="noticeGubun">
-									<option selected="selected">게시판을 선택해주세요</option>
-										<c:forEach items="${noticeGubun}" var="noticeGubun">
-											<c:if test="${noticeGubun.ntgu_stat ==1 }">
-												<option value="${noticeGubun.ntgu_code}">${noticeGubun.ntgu_name}</option> 
-											</c:if>
-										</c:forEach>
+									<option selected="selected" value="${ngvo.ntgu_code}">${ngvo.ntgu_name}</option>
 								</select>
 							</div>
 							<div>
@@ -117,10 +112,10 @@ $(document).ready(function(){
 						  	<div class="filediv">
 							  	<button type="button" id="fileAddBtn">파일추가</button>
 								<input class="fileAdd" type="file" name="nt_file1"/>
-								<input class="fileAdd" type="file" name="nt_file2"/>
-								<input class="fileAdd" type="file" name="nt_file3"/>
-								<input class="fileAdd" type="file" name="nt_file4"/>
-								<input class="fileAdd" type="file" name="nt_file5"/>
+<!-- 								<input class="fileAdd" type="file" name="nt_file2"/> -->
+<!-- 								<input class="fileAdd" type="file" name="nt_file3"/> -->
+<!-- 								<input class="fileAdd" type="file" name="nt_file4"/> -->
+<!-- 								<input class="fileAdd" type="file" name="nt_file5"/> -->
 						  	</div>
 						</form>
 					</div>

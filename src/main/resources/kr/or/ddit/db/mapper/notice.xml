@@ -14,10 +14,12 @@
 	  	SELECT * FROM(
 	    	SELECT ROWNUM AS rn , a.* 
 	    	FROM (
-	         	SELECT * 
-	          	FROM  mini_notice
-	          	WHERE ntgu_code=#{ntgu_code}
-	          	ORDER BY nt_num DESC) a)
+	         		SELECT mini_notice.*, LEVEL
+					FROM mini_notice
+					WHERE NTGU_CODE=#{ntgu_code}
+					START WITH nt_panum = 0
+					CONNECT BY nt_panum = PRIOR nt_num
+					ORDER SIBLINGS BY nt_num DESC) a)
 		WHERE rn BETWEEN (#{page} - 1) * #{pageSize} + 1  AND #{page} * #{pageSize}
   	</select>
 	
@@ -26,9 +28,29 @@
 		SELECT * FROM notice_gubun
 	</select>  
 	
-	<!-- 게시글 전체 가져오기  -->
+	<!-- 게시판 생성 -->
+	<insert id="insertNoticeGubun" parameterType="NoticeGubunVo">
+		INSERT INTO notice_gubun VALUES(UPPER(#{ntgu_code}), ntgu_seq.nextval,#{ntgu_name}, #{ntgu_stat})
+	</insert>
+	
+	<!-- 게시판 상태 변경 -->
+	<update id="updateNoticeGubun" parameterType="NoticeGubunVo">
+		UPDATE notice_gubun SET ntgu_stat = #{ntgu_stat} WHERE ntgu_code=upper(#{ntgu_code})
+	</update>
+	
+		<!-- 게시글 전체 가져오기  -->
+<!-- 	<select id="getAllNotice" parameterType="String" resultType="NoticeVo"> -->
+<!-- 		SELECT * FROM MINI_NOTICE WHERE NTGU_CODE=#{ntgu_code} ORDER BY NT_NUM DESC -->
+<!-- 	</select> -->
+	
+	<!-- 계층형 게시글 전체 가져오기  -->
 	<select id="getAllNotice" parameterType="String" resultType="NoticeVo">
-		SELECT * FROM MINI_NOTICE WHERE NTGU_CODE=#{ntgu_code} ORDER BY NT_NUM DESC
+		SELECT mini_notice.*, LEVEL
+		FROM mini_notice
+		WHERE NTGU_CODE=#{ntgu_code}
+		START WITH nt_panum = 0
+		CONNECT BY nt_panum = PRIOR nt_num
+		ORDER SIBLINGS BY nt_num DESC
 	</select>
 	
 	<!-- 특정 게시판분류 가져오기  -->
@@ -56,10 +78,11 @@
 			#{ntcont_stat},
 			sysdate,
 			#{nt_title},
-			<choose>
-				<when test="nt_panum !=null">#{nt_panum},</when>
-				<otherwise>'',</otherwise>
-			</choose>
+			#{nt_panum,jdbcType=NUMERIC},
+<!-- 			<choose> -->
+<!-- 				<when test="nt_panum !=null">#{nt_panum},</when> -->
+<!-- 				<otherwise>null,</otherwise> -->
+<!-- 			</choose> -->
 			#{nt_cont}
 			 )
 		<selectKey keyProperty="nt_num" resultType="Integer">
@@ -118,8 +141,18 @@
 	</select>
 	
 	<!-- 파일 번호로 조회 -->
-	<select id="">
+	<select id="getFile" resultType="NoticeFileVo" parameterType="NoticeFileVo">
 		SELECT * FROM nt_file WHERE filenum=#{filenum}
 	</select>
+	
+	<!-- 파일삭제 -->
+	<delete id="deleteFile" parameterType="Integer">
+		DELETE FROM nt_file WHERE filenum=#{filenum}
+	</delete>
+	
+	<!-- 게시글 삭제시 파일 삭제  -->
+	<delete id="deleteAllFile" parameterType="Integer">
+		DELETE FROM nt_file WHERE nt_num=#{nt_num}
+	</delete>
 	
 </mapper>

@@ -50,7 +50,6 @@ public class NoticeDetail extends HttpServlet {
 		
 		// 파일가져오기
 		List<NoticeFileVo> nfvoList = noticeService.getAllFile(nt_num);
-//		logger.debug("nfvoList : {} ",nfvoList);
 		request.setAttribute("nfvoList", nfvoList);
 		
 //		logger.debug("reply : {}", replyList);

@@ -130,6 +130,8 @@ $(document).ready(function(){
 						</p>
 					</div>
 					<hr>
+					<a href="${cp}/noticeAnswer?ntnum=${nvo.nt_num}"><span>답글쓰기</span></a>
+					<br><br>
 				
 					<!-- 댓글목록 -->
 					<p class="reply">댓글</p>
@@ -148,7 +150,6 @@ $(document).ready(function(){
 								<input type="hidden" value="${reply.rep_num }" name="repnum" class="repnum"/>
 								<c:if test="${S_MEMBER.user_id == reply.user_id }">
 									<span class="date"><fmt:formatDate value="${reply.rep_dt}" pattern="yyyy-MM-dd HH:mm:ss"/></span> &nbsp;
-									<span><a href="#">답글쓰기</a></span>
 									<c:if test="${reply.rep_stat ==1 }">
 										<span><a href="#" class="repMod" value="${reply.rep_num}" val="${reply.rep_cont}" >수정</a></span>
 										<span><a href="${cp}/replyDelete?userid=${reply.user_id}&repnum=${reply.rep_num}&ntnum=${nvo.nt_num}">삭제</a></span>

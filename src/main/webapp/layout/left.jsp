@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <ul class="nav nav-sidebar">
 	<c:forEach items="${noticeGubun}" var="noticeGubun">
-		<c:if test="${S_MEMBER.user_id != null }">
+		<c:if test="${S_MEMBER.user_id != null && noticeGubun.ntgu_stat == 1}">
 			<li class="active"><a href="${cp}/notice?ntgu_code=${noticeGubun.ntgu_code}">${noticeGubun.ntgu_name}<span class="sr-only">(current)</span></a></li>
 		</c:if>
 		

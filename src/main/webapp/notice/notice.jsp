@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +17,8 @@
 <title>Jsp</title>
 <%@ include file="/layout/commonLib.jsp" %>
 <script>
+$(document).ready(function(){
+})
 </script>
 </head>
 <body>
@@ -34,6 +37,7 @@
 						<table class="table table-striped">
 							<tr>
 								<th>글번호</th>
+<!-- 								<th>부모글번호</th> -->
 								<th>제목</th>
 								<th>아이디</th>
 								<th>작성일</th>
@@ -42,12 +46,27 @@
 								<c:forEach items="${noticeList}" var="notice">
 									<tr data-userid="${notice.user_id }">
 										<td>${notice.nt_num }</td>
+<%-- 										<td>${notice.nt_panum }</td> --%>
 										<c:choose>
 											<c:when test="${notice.ntcont_stat == 0}">
-												<td>[삭제된 게시글 입니다]</td>
+												<td>
+												<c:if test="${level >1 }">
+													<c:forEach begin="1" end="${level}">
+														&nbsp;&nbsp;&nbsp;&nbsp;
+													</c:forEach>
+												</c:if>
+												[삭제된 게시글 입니다]
+												</td>
 											</c:when>
 											<c:otherwise>
-												<td><a href="${cp}/noticeDetail?nt_num=${notice.nt_num}">${notice.nt_title }</a></td>
+												<td><a href="${cp}/noticeDetail?nt_num=${notice.nt_num}">
+												<c:set var ="level" value="${notice.level}"/>
+												<c:if test="${level >1 }">
+													<c:forEach begin="1" end="${level}">
+														&nbsp;&nbsp;&nbsp;&nbsp;
+													</c:forEach>
+												</c:if>
+												${notice.nt_title }</a></td>
 											</c:otherwise>
 										</c:choose>
 										<td>${notice.user_id }</td>

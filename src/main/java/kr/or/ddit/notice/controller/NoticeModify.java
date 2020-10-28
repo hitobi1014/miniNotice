@@ -1,6 +1,7 @@
 package kr.or.ddit.notice.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import kr.or.ddit.notice.model.NoticeFileVo;
 import kr.or.ddit.notice.model.NoticeGubunVo;
 import kr.or.ddit.notice.model.NoticeVo;
 import kr.or.ddit.notice.service.NoticeService;
@@ -46,6 +48,9 @@ public class NoticeModify extends HttpServlet {
 		request.setAttribute("nvo", nvo);
 		request.setAttribute("ngvo", ngvo);
 		
+		// 파일가져오기
+		List<NoticeFileVo> nfvoList = noticeService.getAllFile(nt_num);
+		request.setAttribute("nfvoList", nfvoList);
 		
 		request.getRequestDispatcher("/notice/noticeModify.jsp").forward(request, response);
 		
@@ -69,7 +74,6 @@ public class NoticeModify extends HttpServlet {
 		if(np !=null) {
 			int nt_panum = Integer.parseInt(np);
 			nvo.setNt_panum(nt_panum);
-			logger.debug("부모게시글번호 : {}",nt_panum);
 		}
 		
 		nvo.setNtgu_code(ntgu_code);
@@ -82,6 +86,19 @@ public class NoticeModify extends HttpServlet {
 		}else {
 			logger.debug("등록실패");
 		}
+		
+		String[] getfilenums = request.getParameterValues("fileDel");
+		logger.debug("확인값 : {}",getfilenums);
+//		int filenum=0;
+//		for(int i=0; i<getfilenums.length; i++) {
+//			filenum = Integer.parseInt(getfilenums[i]);
+//			int deleteCnt = noticeService.deleteFile(filenum);
+//			if(deleteCnt >0) {
+//				logger.debug("파일삭제 성공");
+//			}else {
+//				logger.debug("파일삭제 실패");
+//			}
+//		}
 		
 		response.sendRedirect("/notice?ntgu_code="+ntgu_code);
 	}

@@ -116,4 +116,19 @@ public interface NoticeServiceI {
 	 * @return 파일번호에 해당하는 파일vo
 	 */
 	NoticeFileVo getFile(int filenum);
+	
+	/**
+	 * 게시판 사용/ 미사용
+	 */
+	int updateNoticeGubun(NoticeGubunVo ngvo);
+	
+	/**
+	 * 게시글 수정시 파일 삭제
+	 */
+	int deleteFile(int filenum);
+	
+	/**
+	 * 게시글 삭제시 파일 삭제
+	 */
+	int deleteAllFile(int nt_num);
 }

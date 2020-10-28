@@ -11,17 +11,14 @@
 				<span class="icon-bar"></span> 
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">JSP/SPRING 
+			<a class="navbar-brand" href="${cp}/main">JSP/SPRING 
 				<c:if test="${S_MEMBER.user_id != null }">[${S_MEMBER.user_id} 님 환영합니다]</c:if>
 			</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Dashboard</a></li>
-				<li><a href="#">Settings</a></li>
-				<li><a href="#">Profile</a></li>
-				<li><a href="#">Help</a></li>
-				<li><a href="${cp}/logout">LogOut</a></li>
+				<li><a href="${cp}/noticeManage">게시판관리</a></li>
+				<li><a href="${cp}/logout">로그아웃</a></li>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<input type="text" class="form-control" placeholder="Search...">
