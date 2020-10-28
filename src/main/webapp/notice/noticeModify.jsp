@@ -55,13 +55,11 @@ $(document).ready(function(){
 
 	$('.fileDel').on('click',function(){
 		$(this).parent().hide();
-// 		console.log($(this).parent().val());
-		$(this).next('input [class=num]');
-		console.log($(this).next("input[class='num']").val());
-// 		console.log(filenum);
+		var num = $(this).next("input[class='num']").val()
+		console.log(num);
 // 		$(this).parent().append("<input type='hidden' value='${nfvo.filenum}' name='fileDel'/>");
-// 		var delScr = 	
-		
+		var scr = "<input type='hidden' value='"+num+"' name='fileDel'/>";
+		$(this).parent().append(scr);
 	})
 
 })
@@ -111,19 +109,11 @@ $(document).ready(function(){
 										<div class="divdel">
 											<span>${nfvo.filename}</span>
 											<button class="fileDel" type="button" >X</button>
-											<input type="hidden" value="${nfvo.filenum}" class="num" name="num"/>
+											<input type="hidden" value="${nfvo.filenum}" class="num" />
 										</div>
 									</c:forEach>
 								</c:if>
 						  	</div>
-<!-- 					  		<div class="filediv"> -->
-<!-- 							  	<button type="button" id="fileAddBtn">파일추가</button> -->
-<!-- 								<input class="fileAdd" type="file" name="nt_file1"/> -->
-<!-- 								<input class="fileAdd" type="file" name="nt_file2"/> -->
-<!-- 								<input class="fileAdd" type="file" name="nt_file3"/> -->
-<!-- 								<input class="fileAdd" type="file" name="nt_file4"/> -->
-<!-- 								<input class="fileAdd" type="file" name="nt_file5"/> -->
-<!-- 						  	</div> -->
 						</form>
 					</div>
 				</div>
