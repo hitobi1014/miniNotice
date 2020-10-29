@@ -81,14 +81,6 @@ public interface NoticeDaoI {
 	NoticeVo getNotice(int nt_num);
 	
 	/**
-	 * 게시글 검색조회
-	 * @param 작성자, 글번호, 내용, 제목 등의 내용을 포함한 map객체
-	 * @return 파라미터 정보에 해당하는 게시글을 List 객체로 반환 
-	 */
-	List<NoticeVo> searchNotice(Map<String, Object> searchInfo);
-	//
-	
-	/**
 	 * 게시글 수정
 	 * @param 게시글 정보를 수정할 내용을 담은 vo객체
 	 * @return 게시글 수정을 성공하면 1이상 실패하면 0반환

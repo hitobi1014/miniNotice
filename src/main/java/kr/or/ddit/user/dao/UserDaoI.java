@@ -1,5 +1,7 @@
 package kr.or.ddit.user.dao;
 
+import org.apache.ibatis.session.SqlSession;
+
 import kr.or.ddit.user.model.UserVo;
 
 public interface UserDaoI {
@@ -8,5 +10,5 @@ public interface UserDaoI {
 	 * @return  userid에 맞는 정보를 담은 vo객체
 	 * @param 로그인시 userid를 인자로 받음 
 	 */
-	UserVo getUser(String userid);
+	UserVo getUser(SqlSession sqlSession, String userid);
 }

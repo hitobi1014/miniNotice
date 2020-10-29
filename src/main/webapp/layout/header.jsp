@@ -18,7 +18,14 @@
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="${cp}/noticeManage">게시판관리</a></li>
-				<li><a href="${cp}/logout">로그아웃</a></li>
+				<c:choose>
+					<c:when test="${S_MEMBER.user_id != null }">
+						<li><a href="${cp}/logout">로그아웃</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="${cp}/login">로그인</a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<input type="text" class="form-control" placeholder="Search...">

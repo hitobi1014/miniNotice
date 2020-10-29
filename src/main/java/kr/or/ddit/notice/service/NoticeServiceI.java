@@ -44,14 +44,6 @@ public interface NoticeServiceI {
 	Map<String, Object> getAllNotice(String ntgu_code);
 	
 	/**
-	 * 게시글 검색조회
-	 * @param 작성자, 글번호, 내용, 제목 등의 내용을 포함한 map객체
-	 * @return 파라미터 정보에 해당하는 게시글을 List 객체로 반환 
-	 */
-	List<NoticeVo> searchNotice(Map<String, Object> searchInfo);
-	//
-	
-	/**
 	 * 게시글 수정
 	 * @param 게시글 정보를 수정할 내용을 담은 vo객체
 	 * @return 게시글 수정을 성공하면 1이상 실패하면 0반환
@@ -92,13 +84,6 @@ public interface NoticeServiceI {
 	 * @return 수정 성공시 1이상 실패시0 반환
 	 */
 	int updateReply(ReplyVo rvo);
-	
-	/**
-	 * 게시판 페이징 처리를 위한 게시판 별 글 갯수 구하기
-	 * @param 게시판 분류코드
-	 * @return 게시판별 글 갯수
-	 */
-//	int noticeTotalCnt(String ntgu_code);
 	
 	//PageVO pageVo,String ntgu_code
 	Map<String, Object> getAllNoticePage(Map<String, Object> map);

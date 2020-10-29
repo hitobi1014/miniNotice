@@ -62,6 +62,18 @@ $(document).ready(function(){
 		$(this).parent().append(scr);
 	})
 
+	var i = $('.divdel').length;
+	$('#fileAddBtn').on('click',function(){
+		if(i>=5){
+			alert('파일은 최대 5개까지 첨부가능합니다');
+		}else{
+			i++;
+			$('.fileAdd[name=nt_file'+i+']').show();
+			console.log('i값 : '+i);
+		}
+	})
+
+	$('.fileAdd').hide();
 })
 </script>
 
@@ -79,7 +91,7 @@ $(document).ready(function(){
 						<h2>글쓰기</h2>
 					</div>
 					<div>
-						<form method="post" action="${cp}/noticeModify" id="frm">
+						<form method="post" action="${cp}/noticeModify" id="frm" enctype="multipart/form-data">
 							<input type="hidden" value="${S_MEMBER.user_id}" name="user_id" id="user_id" />
 							<input type="hidden" value="${nvo.nt_num}" name="nt_num" />
 							<div>
@@ -113,6 +125,11 @@ $(document).ready(function(){
 										</div>
 									</c:forEach>
 								</c:if>
+								<input class="fileAdd" type="file" name="nt_file1"/>
+								<input class="fileAdd" type="file" name="nt_file2"/>
+								<input class="fileAdd" type="file" name="nt_file3"/>
+								<input class="fileAdd" type="file" name="nt_file4"/>
+								<input class="fileAdd" type="file" name="nt_file5"/>
 						  	</div>
 						</form>
 					</div>

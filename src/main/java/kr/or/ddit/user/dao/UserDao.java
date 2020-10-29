@@ -14,10 +14,8 @@ public class UserDao implements UserDaoI {
 	}
 	
 	@Override
-	public UserVo getUser(String userid) {
-		UserVo userVo = sqlSession.selectOne("user.getUser", userid);
-		sqlSession.close();
-		return userVo;
+	public UserVo getUser(SqlSession sqlSession, String userid) {
+		return sqlSession.selectOne("user.getUser", userid);
 	}
 
 }

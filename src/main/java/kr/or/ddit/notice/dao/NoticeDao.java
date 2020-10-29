@@ -66,12 +66,6 @@ public class NoticeDao implements NoticeDaoI {
 	}
 
 	@Override
-	public List<NoticeVo> searchNotice(Map<String, Object> searchInfo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int updateNotice(NoticeVo nvo) {
 		SqlSession sqlSession = MybatisUtil.getSqlSession();
 		int updateCnt = sqlSession.update("notice.updateNotice", nvo);
@@ -194,7 +188,7 @@ public class NoticeDao implements NoticeDaoI {
 		int deleteCnt = sqlSession.update("notice.deleteAllFile",nt_num);
 		sqlSession.commit();
 		sqlSession.close();
-		return 0;
+		return deleteCnt;
 	}
 	
 

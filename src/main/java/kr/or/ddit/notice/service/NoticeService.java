@@ -56,12 +56,6 @@ public class NoticeService implements NoticeServiceI {
 	}
 
 	@Override
-	public List<NoticeVo> searchNotice(Map<String, Object> searchInfo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int updateNotice(NoticeVo nvo) {
 		return noticeDao.updateNotice(nvo);
 	}
@@ -95,18 +89,6 @@ public class NoticeService implements NoticeServiceI {
 	public int updateReply(ReplyVo rvo) {
 		return noticeDao.updateReply(rvo);
 	}
-
-//	@Override
-//	public int noticeTotalCnt(String ntgu_code) {
-//		// 15건, 페이지 사이즈를 7로 가정했을때 3개의 페이지가 나와야한다
-//		// 15/7 = 2.14... 올림을 하여 3개의 페이지가 필요
-//		int totalCount = noticeDao.noticeTotalCnt(ntgu_code);
-//		int pages = (int)Math.ceil((double)totalCount/7);
-////		map.put("pages", pages);
-//		
-////		sqlSession.close();
-//		return pages;
-//	}
 
 	@Override
 	public Map<String, Object> getAllNoticePage(Map<String, Object> map) {

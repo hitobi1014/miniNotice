@@ -3,16 +3,20 @@ package kr.or.ddit.notice.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import kr.or.ddit.fileupload.FileUploadUtil;
 import kr.or.ddit.notice.model.NoticeFileVo;
 import kr.or.ddit.notice.model.NoticeGubunVo;
 import kr.or.ddit.notice.model.NoticeVo;
@@ -23,6 +27,7 @@ import kr.or.ddit.notice.service.NoticeServiceI;
  * Servlet implementation class NoticeModify
  */
 @WebServlet("/noticeModify")
+@MultipartConfig
 public class NoticeModify extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private NoticeServiceI noticeService;
@@ -89,18 +94,49 @@ public class NoticeModify extends HttpServlet {
 		
 		String[] getfilenums = request.getParameterValues("fileDel");
 		logger.debug("확인값 : {}",getfilenums);
-//		int filenum=0;
-//		for(int i=0; i<getfilenums.length; i++) {
-//			filenum = Integer.parseInt(getfilenums[i]);
-//			int deleteCnt = noticeService.deleteFile(filenum);
-//			if(deleteCnt >0) {
-//				logger.debug("파일삭제 성공");
-//			}else {
-//				logger.debug("파일삭제 실패");
-//			}
-//		}
+		if(getfilenums != null) {
+			int filenum=0;
+			for(int i=0; i<getfilenums.length; i++) {
+				filenum = Integer.parseInt(getfilenums[i]);
+				int deleteCnt = noticeService.deleteFile(filenum);
+				if(deleteCnt >0) {
+					logger.debug("파일삭제 성공");
+				}else {
+					logger.debug("파일삭제 실패");
+				}
+			}
+		}
+		
+
+		for(int i=1; i<6; i++) {
+			logger.debug("i값 : {}",i);
+			Part profile = request.getPart("nt_file" +i);
+			if(profile !=null) {
+				logger.debug("profile : {} ",profile.getHeader("Content-Disposition"));
+				
+				String realFilename = FileUploadUtil.getFileName(profile.getHeader("Content-Disposition")); // 파일이름
+				String fileName = UUID.randomUUID().toString();
+				String extension = FileUploadUtil.getExtension(realFilename);
+				String filePath = ""; //파일경로
+				if(profile.getSize() > 0) { 
+					filePath = "D:\\upload\\" + fileName + "."+extension;
+					profile.write(filePath);
+					NoticeFileVo nfvo = new NoticeFileVo();
+					nfvo.setFilename(realFilename);
+					nfvo.setFilepath(filePath);
+					nfvo.setNt_num(nt_num);
+					int inserFiletCnt = noticeService.insertFile(nfvo);
+					if(inserFiletCnt > 0) {
+						logger.debug("{}번째 파일 등록성공",i);
+					}else {
+						logger.debug("파일 등록실패");
+					}
+				}
+			}else {
+				continue;
+			}
+		}
 		
 		response.sendRedirect("/notice?ntgu_code="+ntgu_code);
 	}
-
 }

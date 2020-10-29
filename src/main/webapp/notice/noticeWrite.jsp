@@ -60,16 +60,6 @@ $(document).ready(function(){
 
 	var i = 1;
 	$('#fileAddBtn').on('click',function(){
-// 		var filelen = $('.fileAdd').length;
-// 		console.log('i값 : '+i);
-// 		var file = "<input class='fileAdd' type='file' name='nt_file"+i+"'/>"
-// 		console.log(filelen);
-// 		if(filelen <5){
-// 			i++;
-// 			$('.filediv').append(file);
-// 			console.log(file);
-// 		}else{
-// 			alert("파일은 최대 5개까지 첨부가능합니다.");
 		console.log('i값 : '+i);
 		if(i>5){
 			alert('파일은 최대 5개까지 첨부가능합니다');

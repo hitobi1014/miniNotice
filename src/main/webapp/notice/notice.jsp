@@ -80,6 +80,18 @@ $(document).ready(function(){
 					page : ${page}
 					<div class="text-center">
 						<ul class="pagination">
+							<c:choose>
+								<c:when test="${page==1}">
+									<li class="active"><span>&lt;&lt;</span></li>
+									<li class="active"><span>&lt;</span></li>
+								</c:when>
+								
+								<c:otherwise>
+									<li><a href="${cp}/notice?page=1&ntgu_code=${ngvo.ntgu_code}">&lt;&lt;</a></li>
+									<li><a href="${cp}/notice?page=${page-1}&ntgu_code=${ngvo.ntgu_code}">&lt;</a></li>
+								</c:otherwise>
+							</c:choose>
+							
 							<c:forEach var="i" begin="1" end="${pages}">
 								<c:choose>
 									<c:when test="${i == page }">
@@ -90,6 +102,19 @@ $(document).ready(function(){
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
+							
+							<c:choose>
+								<c:when test="${page==pages}">
+									<li class="active"><span>&gt;</span></li>
+									<li class="active"><span>&gt;&gt;</span></li>
+								</c:when>
+								
+								<c:otherwise>
+									<li><a href="${cp}/notice?page=${page+1}&ntgu_code=${ngvo.ntgu_code}">&gt;</a></li>
+									<li><a href="${cp}/notice?page=${pages}&ntgu_code=${ngvo.ntgu_code}">&gt;&gt;</a></li>
+								</c:otherwise>
+							</c:choose>
+							
 						</ul>
 					</div>
 				</div>
