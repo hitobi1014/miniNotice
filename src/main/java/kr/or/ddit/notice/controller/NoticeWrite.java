@@ -29,11 +29,12 @@ public class NoticeWrite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static final Logger logger = LoggerFactory.getLogger(NoticeWrite.class);   
 	private NoticeServiceI noticeService;
-	public NoticeWrite() {
+
+	@Override
+	public void init() throws ServletException {
 		noticeService = new NoticeService();
 	}
-    
-    
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/notice/noticeWrite.jsp").forward(request, response);
 	}

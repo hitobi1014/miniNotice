@@ -24,7 +24,13 @@ public class NoticeGubunModify extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LoggerFactory.getLogger(NoticeGubunModify.class);
 	private NoticeServiceI noticeService;
+	
 	public NoticeGubunModify() {
+		
+	}
+	
+	@Override
+	public void init() throws ServletException {
 		noticeService = new NoticeService();
 	}
 	

@@ -26,7 +26,8 @@ public class NoticeGubunInsert extends HttpServlet {
 	
 	private NoticeServiceI noticeService;
 	
-	public NoticeGubunInsert() {
+	@Override
+	public void init() throws ServletException {
 		noticeService = new NoticeService();
 	}
        

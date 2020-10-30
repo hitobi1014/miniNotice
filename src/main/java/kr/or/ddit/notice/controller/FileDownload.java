@@ -26,7 +26,8 @@ public class FileDownload extends HttpServlet {
 	private NoticeServiceI noticeService;
 	private static final Logger logger = LoggerFactory.getLogger(FileDownload.class);
 	
-	public FileDownload() {
+	@Override
+	public void init() throws ServletException {
 		noticeService = new NoticeService();
 	}
        

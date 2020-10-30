@@ -25,7 +25,8 @@ public class ReplyWrite extends HttpServlet {
 	private static final Logger logger = LoggerFactory.getLogger(ReplyWrite.class);
 	private NoticeServiceI noticeService;
 	
-	public ReplyWrite() {
+	@Override
+	public void init() throws ServletException {
 		noticeService = new NoticeService();
 	}
 	

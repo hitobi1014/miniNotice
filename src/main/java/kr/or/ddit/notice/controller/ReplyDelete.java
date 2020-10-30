@@ -23,7 +23,8 @@ public class ReplyDelete extends HttpServlet {
 	private static final Logger logger = LoggerFactory.getLogger(ReplyDelete.class);
 	private NoticeServiceI noticeService;
 	
-	public ReplyDelete() {
+	@Override
+	public void init() throws ServletException {
 		noticeService = new NoticeService();
 	}
 	

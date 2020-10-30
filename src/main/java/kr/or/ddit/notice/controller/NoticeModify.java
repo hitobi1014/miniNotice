@@ -33,7 +33,8 @@ public class NoticeModify extends HttpServlet {
 	private NoticeServiceI noticeService;
 	private static final Logger logger = LoggerFactory.getLogger(NoticeModify.class);
 	
-	public NoticeModify() {
+	@Override
+	public void init() throws ServletException {
 		noticeService = new NoticeService();
 	}
        

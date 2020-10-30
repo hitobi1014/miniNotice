@@ -25,7 +25,9 @@ public class NoticeDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LoggerFactory.getLogger(NoticeDelete.class);
 	private NoticeServiceI noticeService;
-	public NoticeDelete() {
+	
+	@Override
+	public void init() throws ServletException {
 		noticeService = new NoticeService();
 	}
 	

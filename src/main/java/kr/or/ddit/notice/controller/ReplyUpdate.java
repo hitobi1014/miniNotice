@@ -22,7 +22,9 @@ public class ReplyUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LoggerFactory.getLogger(ReplyUpdate.class);
 	private NoticeServiceI noticeService;
-	public ReplyUpdate() {
+	
+	@Override
+	public void init() throws ServletException {
 		noticeService = new NoticeService();
 	}
        

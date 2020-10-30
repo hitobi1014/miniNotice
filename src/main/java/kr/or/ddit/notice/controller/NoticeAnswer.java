@@ -34,7 +34,9 @@ public class NoticeAnswer extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(NoticeAnswer.class);   
 	private NoticeServiceI noticeService;
 	private int nt_panum;
-	public NoticeAnswer() {
+	
+	@Override
+	public void init() throws ServletException {
 		noticeService = new NoticeService();
 	}
     
